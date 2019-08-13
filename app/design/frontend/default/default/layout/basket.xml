@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+		<reference name="head">
+			<block type="core/text" name="google.cdn.jquery">
+				<action method="setText" ifconfig="bkconfig/bk_group/bk_load_jq">
+					<text>
+						<![CDATA[<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script><script type="text/javascript">jQuery.noConflict();</script>]]>
+					</text>
+				</action>
+			</block>
+			<action method="addCss" ifconfig="bkconfig/bk_group/bk_enabled">
+				<stylesheet>basket/css/basket.css</stylesheet>
+			</action>
+		</reference>
+		<reference name="footer">
+            <block type="basket/basket" name="basket.footer" after="-" template="basket/bk_footer.phtml" />
+		</reference>
+        <reference name="content">
+            <block type="basket/basket" name="basket" template="basket/basket.phtml" />
+        </reference>
+    </default>
+    <basket_index_showcart>
+        <reference name="content">
+            <block type="basket/basket" name="basket" template="basket/cart.phtml" />
+        </reference>
+    </basket_index_showcart>
+</layout> 

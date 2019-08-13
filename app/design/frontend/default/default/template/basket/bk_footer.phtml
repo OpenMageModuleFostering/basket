@@ -1,0 +1,161 @@
+<?php if ($this->getBKConfigByName('bk_enabled')): ?>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	var bkbaseUrl = '<?php echo $this->getUrl('basket/index') ?>';
+	var bk_crt_btn = '<?php echo $this->getBKConfigByName('bk_class') ?>';
+	var bk_org_text = jQuery(bk_crt_btn).text();
+
+	jQuery(document).on("click", bk_crt_btn, function(e) {
+		e.preventDefault();
+		var bk_org_text = jQuery(bk_crt_btn).text();
+		showTooltip(e);
+		jQuery(bk_crt_btn).text(bk_org_text);
+		positionTooltip(e);
+	});
+
+	jQuery('a.remove').hover(function(){
+		jQuery(this).css('color','#F00');
+	}, function(){
+		jQuery(this).css('color','#FFF');
+	});
+
+	jQuery(document).on("click", '#closebasket', function(e) {
+		e.preventDefault();
+		jQuery('div.bk_tooltip').hide();
+	});
+
+	jQuery(document).on("click", '#bk_main .remove', function(e) {
+		e.preventDefault();
+		var con = confirm('Are you sure to remove this item from your cart?');
+		if(con === false)
+			return false;
+		var ID = jQuery(this).attr("id").split("bk_rm_");
+		var par = jQuery(this).parent().parent();
+
+		par.children().css('background-color','#F75D59').animate({opacity:0.4}, 'slow');
+		jQuery('#bk_status').show().html('Removing item...');
+
+		jQuery.ajax({
+			type: "POST",
+			url: bkbaseUrl+"removeitem",
+			data: {'id':ID[1]},
+			cache: false,
+			dataType: 'json'
+		}).done(function(data) {
+			jQuery('#bk_status').empty().html(data.message);
+			jQuery('.bk_count').html("("+data.cart_count+")");
+			jQuery('.bk_total').html(data.cart_total);
+			updateCaption(data.cart_count);
+			par.slideUp('slow');
+		});
+	});
+
+	function updateCaption(cnt) {
+		cnt = parseInt(cnt, 10);
+		var item = 'item';
+		if (cnt > 0) {
+			item = 'items';
+		}
+		jQuery(bk_crt_btn).text('My Cart (' + cnt + ' ' + item + ')');
+	}
+
+	var positionTooltip = function(event) {
+		var tPosX = event.pageY + 10;
+		var tPosY = event.pageY + 20;
+
+		jQuery('div.bk_tooltip').css({top: tPosY, right: tPosX});
+	};
+
+	var showTooltip = function(event) {
+		jQuery.ajax({
+			type: "POST",
+			url: bkbaseUrl+"showcart",
+			beforeSend: function() {
+				jQuery("#bk_status").text('Loading...');
+			}
+		}).done(function(data) {
+			try {
+				if (data) {
+					jQuery('.bk_tooltip').show().find("#bk_data").html(data);
+					jQuery("#bk_status").hide();
+				}
+			} catch(e) {
+				//
+			}
+		});
+		jQuery('.bk_tooltip').css({'opacity':'0.9'}); /* Set the opacity */
+	};
+
+	jQuery(document).on("click", "#bk_checkout", function(e) {
+		e.preventDefault();
+		window.location.href = '<?php echo Mage::getUrl().'checkout/'?>';	
+	});
+
+	jQuery(document).on("click", "#bk_clr", function(e) {
+		e.preventDefault();
+		var con = confirm('Are you sure to clear the cart?');
+		if(con === false)
+			return false;
+
+		jQuery.ajax({
+			type: "POST",
+			url: bkbaseUrl+"emptyshoppingcart",
+			dataType: "json",
+			beforeSend: function() {
+				jQuery("#bk_status").text('Please wait...');
+			}
+		}).done(function(data) {
+			try {
+				if (data.status == "success") {
+					jQuery('.bk_tooltip').hide();
+				} if (data.status == "error") {
+					jQuery("#bk_status").show().text(data.message);
+				}
+			} catch(e) {
+				//
+			}
+		});
+	});
+
+	jQuery(document).on("click", "#bk_update", function(e) {
+		e.preventDefault();
+
+		jQuery.ajax({
+			type: "POST",
+			url: bkbaseUrl+"updatecart",
+			data: jQuery("#bk_form").find("input[type=text]").serialize(),
+			dataType: "json",
+			beforeSend: function() {
+				jQuery("#bk_status").show().text('Updating...');
+			}
+		}).done(function(data) {
+			try {
+				if (data.status == "success") {
+					showTooltip(e);
+					jQuery("#bk_status").show().text(data.message);
+					updateCaption(data.cart_count);
+				} if (data.status == "error") {
+					jQuery("#bk_status").show().text(data.message);
+				}
+			} catch(e) {
+				//
+			}
+		});
+	});
+
+	jQuery(document).on("submit", "#bk_form", function(e) {
+		e.preventDefault();
+	});
+
+	jQuery(document).keyup(function(e) {
+		if (e.keyCode == 27) {
+			hideTooltip();
+		}
+	});
+
+	var hideTooltip = function() {
+		jQuery('div.bk_tooltip').hide();
+	};
+});
+</script>
+<?php endif; ?>

@@ -1,0 +1,73 @@
+<form method="POST" action="" id="bk_form">
+<table align="center" cellpadding="1" cellspacing="1" id="bk_main">
+<?php $totItems = Mage::helper('checkout/cart')->getCart()->getSummaryQty() ?>
+	<tr>
+		<td>
+			<a href="<?php echo Mage::getUrl().'checkout/cart/'?>" title="Go to Shopping Cart">Go to Shopping Cart</a> <span class="bk_count"><?php echo '('.$totItems.')' ?></span>
+		</td>
+		<td style="text-align:right;"><a id='closebasket' href="#" title="Close">[Esc]</a></td>
+	</tr>
+	<?php
+	if($totItems > 0) {
+	?>
+	<tr>
+		<td colspan="3">
+			<table cellpadding="1" cellspacing="1" border="0" width="100%">
+				<tr>
+					<th style="width:10px;">&nbsp;</th>
+					<th style="width:90px;">&nbsp;</th>
+					<th style="width:200px;">Product Name</th>
+					<th style="text-align:right;width:100px;">Unit Price</th>
+					<th style="text-align:right;width:50px;">Qty</th>
+					<th style="text-align:right;width:100px;">Subtotal</th>
+				</tr>
+				<?php
+					$subtotal = 0;
+					$cart = Mage::helper('checkout/cart')->getCart()->getQuote()->getAllItems();
+					foreach($cart as $item) {
+						$product = Mage::getModel('catalog/product')->load($item->getProductId());
+						$imagepath = Mage::helper('catalog/image')->init($product, 'image')->resize(75, 75);
+					?>
+					<tr>
+						<td class="separator"><a href="#" id="bk_rm_<?php echo $item->getProductId() ?>" title="Remove item" class="remove"><b>x</b></a></td>
+						<td class="separator"><?php echo '<a href="'.Mage::getUrl().$product->getUrlPath().'"><img src="'.$imagepath.'"</a>' ?></td>
+						<td class="separator"><?php echo '<a href="'.Mage::getUrl().$product->getUrlPath().'">'.$item->getName().'</a>' ?></td>
+						<td class="separator" style="text-align:right;"><?php echo $this->helper('checkout')->formatPrice($item->getBaseCalculationPrice()) ?></td>
+						<td class="separator" style="text-align:right;">
+							<?php if ($product->getTypeId() == 'simple'): ?>
+								<input type="text" name="cart[<?php echo $item->getId() ?>][qty]" class="bk_qty input-text qty" id="bk_qty_<?php echo $item->getId() ?>" value="<?php echo $item->getQty() ?>" />
+							<?php else: ?>
+								<?php echo $item->getQty() ?>
+							<?php endif; ?>
+						</td>
+						<td class="separator" style="text-align:right;"><?php echo $this->helper('checkout')->formatPrice($item->getQty()*$item->getBaseCalculationPrice()) ?></td>
+					</tr>
+				<?php
+						$subtotal += ($item->getQty()*$item->getBaseCalculationPrice());
+					}
+				?>
+				<tr>
+					<td colspan="3">
+						<button id="bk_checkout" class="button" title="Checkout" type="button"><span><span>Checkout</span></span></button>
+						<button id="bk_clr" class="button" title="Clear" type="button"><span><span>Clear</span></span></button>
+						<button id="bk_update" class="button" title="Update" type="button"><span><span>Update</span></span></button>
+					</td>
+					<td colspan="2" style="text-align:right;"><b>Grand Total</b></td>
+					<td style="text-align:right;" id="total"><span class="bk_total"><?php echo $this->helper('checkout')->formatPrice(Mage::helper('checkout/cart')->getQuote()->getGrandTotal()); ?></span></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<?php
+	}
+	else
+	{
+	?>
+	<tr>
+		<td colspan="3" style="text-align:center">You have no items in your shopping cart.<br />Click <a href="<?php Mage::getUrl() ?>">here</a> to continue shopping.</td>
+	</tr>
+	<?php
+	}
+	?>
+</table>
+</form>

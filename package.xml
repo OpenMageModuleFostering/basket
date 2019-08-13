@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Basket</name>
+    <version>0.1.1</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/osl-3.0.php">Open Software License (OSL)</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Basket is the simple application to show your cart details in a popup box.</summary>
+    <description>Basket is the simple application to show your cart details in a popup box.</description>
+    <notes>Advanced version released</notes>
+    <authors><author><name>Arvind Bhardwaj</name><user>Arvind07</user><email>bhardwajsonheight@gmail.com</email></author></authors>
+    <date>2013-04-10</date>
+    <time>11:05:30</time>
+    <contents><target name="mageetc"><dir name="modules"><file name="WebspeaksBasket_Basket.xml" hash="641fd02f2bfbb05c2a06a9256579ae32"/></dir></target><target name="magelocal"><dir name="WebspeaksBasket"><dir name="Basket"><dir name="Block"><file name="Basket.php" hash="2ff44e8eb603d3f12d1406ab01e3a898"/></dir><dir name="Helper"><file name="Data.php" hash="744ca7e57491cce56bf2764ac018d613"/></dir><dir name="controllers"><file name="IndexController.php" hash="c021c2a31a6d0fa7f454287535baa4c1"/></dir><dir name="etc"><file name="adminhtml.xml" hash="72132742ebc292d0160701a39cab5b5e"/><file name="config.xml" hash="87524d2d6c2f701e6191e420be09e04f"/><file name="system.xml" hash="3dcf44fa00c67a56e8fd7df9628ba30c"/></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="basket.xml" hash="97f114e64cc5c29ca3da21210f5dea89"/></dir></dir></dir></dir><dir name="frontend"><dir name="default"><dir name="default"><dir name="layout"><file name="basket.xml" hash="13d8a74b5cf4402d4afe1d88ecd2e433"/></dir><dir name="template"><dir name="basket"><file name="basket.phtml" hash="cedb47b6b6bda313c1e6341ffddce5aa"/><file name="bk_footer.phtml" hash="b3e5c2d715d7134b1b85c0a207064375"/><file name="cart.phtml" hash="6c6e2fc35a1081a7a9d5c43dd2e6eff8"/></dir></dir></dir></dir></dir></target><target name="mageskin"><dir name="frontend"><dir name="default"><dir name="default"><dir name="basket"><dir name="css"><file name="basket.css" hash="8f64b12be0be8a7af1deef12f79c9836"/></dir></dir></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
+</package>

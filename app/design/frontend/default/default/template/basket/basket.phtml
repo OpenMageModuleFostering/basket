@@ -1,0 +1,22 @@
+<?php if ($this->getBKConfigByName('bk_enabled')): ?>
+
+<?php
+$bg_color = $this->getBKConfigByName('bk_bg');
+$text_color = $this->getBKConfigByName('bk_txt_color');
+$style = '';
+if (!empty($bg_color)) {
+	$style = 'background-color:#'.$bg_color.';';
+}
+if (!empty($text_color)) {
+	echo '<style type="text/css">';
+	echo 'div.bk_tooltip, div.bk_tooltip th, div.bk_tooltip tr,div.bk_tooltip a, div.bk_tooltip #status {';
+	echo 'color:#'.$text_color.';';
+	echo '}';
+	echo '</style>';
+}
+?>
+<div class="bk_tooltip" style="<?php echo $style ?>">
+	<div id="bk_status"></div>
+	<div id="bk_data"></div>
+</div>
+<?php endif; ?>

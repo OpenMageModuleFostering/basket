@@ -1,0 +1,18 @@
+table#bk_main {padding:5px 5px 5px 5px;width: 100%;}
+div.bk_tooltip {display: none;background-color:#000000;color:#FFFFFF;position: fixed;padding 10px;z-index: 20;border: 3px solid #ccc;width:530px;overflow-x: hidden;overflow-y: auto;}
+* html div.bk_tooltip { height: expression( this.scrollHeight < 334 ? "333px" : "auto" ); /* sets min-height for IE */}
+div.bk_tooltip { min-height: 333px; /* sets min-height value for all standards-compliant browsers */}
+* html div.bk_tooltip { height: expression( this.scrollHeight > 500 ? "501px" : "auto" ); /* sets max-height for IE */}
+div.bk_tooltip {max-height: 501px; /* sets max-height value for all standards-compliant browsers */}
+div.bk_tooltip th{ background:#666; font-size:12px; font-weight:bold; color:#FFF; margin:3px 3px 5px 3px; padding:2px;}
+div.bk_tooltip tr{color:#FFF;}
+div.bk_tooltip tr{margin:5px 0 10px 0; padding:5px 0 10px 0}
+div.bk_tooltip img{border:none; padding:3px;}
+div.bk_tooltip a{text-decoration:none; color:#FFF;}
+div.bk_tooltip a:hover{text-decoration:underline;}
+div.bk_tooltip .remove{padding-top:10px;}
+div.bk_tooltip a.remove:hover{color:#F00;}
+div.bk_tooltip #status{ background:#FC0; color:#000; padding:3px; text-align:center; display:none; width:200px; position:fixed; margin-left:165px;}
+div.bk_tooltip .separator{ border-bottom:#CCC thin dotted;}
+div.bk_tooltip .button{ margin:5px;}
+div#bk_status {position:absolute;background-color: #E67432;left: 50%;margin-left: auto;padding: 0 3px;}

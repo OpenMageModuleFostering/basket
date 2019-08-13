@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Basket",
+    "type": "magento-module",
+    "license": "Open-Software-License-(OSL)",
+    "homepage": "",
+    "description": "Basket is the simple application to show your cart details in a popup box.",
+    "authors": [
+    {
+        "name": "Arvind Bhardwaj",
+        "email": "bhardwajsonheight@gmail.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
