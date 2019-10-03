@@ -1,7 +1,7 @@
 {
-    "name": "OpenMageModuleFostering\/Basket",
+    "name": "openmage-module-fostering\/basket",
     "type": "magento-module",
-    "license": "Open-Software-License-(OSL)",
+    "license": "OSL-3.0",
     "homepage": "",
     "description": "Basket is the simple application to show your cart details in a popup box.",
     "authors": [
